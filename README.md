@@ -1,17 +1,19 @@
-# task_viewer_zeabix
+# task_viewer
 
-A new Flutter project.
+โปรเจคสำหรับทดสอบสัมภาษณ์
 
-## Getting Started
+## วิธีรันโปรเจครูปแบบ Debug
 
-This project is a starting point for a Flutter application.
+ติดตั้งและตั้งค่า environmet ดังนี้
 
-A few resources to get you started if this is your first Flutter project:
+[A few resources to get you started if this is your first Flutter project:](https://docs.flutter.dev/get-started/install/windows/mobile)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+clone โปรเจคตั้วนี้และทำการ run ด้วยคำสั่ง Flutter run ใน Terminal
+ติดตั้ง APK ในโทรศัพท์ Android หรือ Emulator
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# zeabix-test
+## Feature ของโปรเจคนี้
+- login และ Register ด้วย Firebase และ FireStore
+- สุ่มข้อมูลงานและแสดงในปฎิทิน
+- ควบคุม State ด้วย Provider
+- Google Maps บอกพิกัดและสามารถ Deeplink ไปยังแอป Google maps เพื่อนำทางต่อได้
+- ปรับ Darkmode LightMode
