@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "626816773624",
+    "project_id": "zeabix-test-project",
+    "storage_bucket": "zeabix-test-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626816773624:android:fced9c53b095c1b5293a0d",
+        "android_client_info": {
+          "package_name": "com.example.taskviewer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABHvmyM-rSRaktFnbBxWFsjtNmJsP5_eI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
