@@ -1,4 +1,4 @@
-package com.example.task_viewer_zeabix
+package com.example.taskviewer
 
 import io.flutter.embedding.android.FlutterActivity
 

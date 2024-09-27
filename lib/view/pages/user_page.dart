@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:task_viewer_zeabix/view/pages/login_page.dart';
+import 'package:task_viewer_zeabix/view/pages/task_scaffold.dart';
+import 'package:task_viewer_zeabix/view/widgets/toggle_button.dart';
 
 class userPage extends StatefulWidget {
   @override
@@ -8,54 +11,54 @@ class userPage extends StatefulWidget {
 }
 
 class _userPageState extends State<userPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  String _name = '';
-  String _email = '';
+  String name = '';
+  String email = '';
 
   @override
   void initState() {
     super.initState();
-    _fetchUserData();
+    fetchUserData();
   }
 
-  Future<void> _fetchUserData() async {
-    User? user = _auth.currentUser;
+  Future<void> fetchUserData() async {
+    User? user = auth.currentUser;
     if (user != null) {
       DocumentSnapshot userDoc =
-          await _firestore.collection('users').doc(user.uid).get();
+          await firestore.collection('users').doc(user.uid).get();
       setState(() {
-        _name = userDoc['name'];
-        _email = userDoc['email'];
+        name = userDoc['username'];
+        email = userDoc['email'];
       });
     }
   }
 
-  Future<void> _logout() async {
-    await _auth.signOut();
-    // Navigate back to the login or registration page
+  Future<void> logout() async {
+    await auth.signOut();
+
     Navigator.of(context)
-        .pushReplacementNamed('/login'); // Change to your login route
+        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('User Profile'),
-      ),
+    return TaskScaffold(
+      currentIndex: 3,
+      appBar: "User Page",
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Name: $_name', style: TextStyle(fontSize: 20)),
+            Text('Name: $name', style: TextStyle(fontSize: 20)),
             SizedBox(height: 10),
-            Text('Email: $_email', style: TextStyle(fontSize: 20)),
+            Text('Email: $email', style: TextStyle(fontSize: 20)),
             Spacer(),
+            ThemeToggleButton(),
             ElevatedButton(
-              onPressed: _logout,
+              onPressed: logout,
               child: Text('Logout'),
             ),
           ],

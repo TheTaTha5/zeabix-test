@@ -22,9 +22,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   DateTime now = DateTime.now();
 
-  // Example: Formatting to a readable string
-
-  // print(formattedDate); // e.g., 2024-09-26 – 15:30
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   int visit = 0;
   double height = 30;
@@ -45,19 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
       print('User declined or has not accepted permission');
     }
     log("fcmToken $fcmToken");
-  }
-
-  void _configureFcmListeners() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      // Handle foreground messages
-      print('Received message: ${message.notification?.title}');
-      // You can show a dialog or a notification here
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      // Handle when the app is opened from a notification
-      print('Message clicked: ${message.data}');
-    });
   }
 
   Future<List<Map<String, dynamic>>> _fetchTasks() async {
@@ -81,7 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     requestPermission();
-    _configureFcmListeners();
   }
 
   @override

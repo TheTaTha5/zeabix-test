@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,27 +11,33 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  String? _errorMessage;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  String? errorMessage;
 
-  Future<void> _register() async {
+  Future<void> register() async {
     try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
-      // Successfully registered
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+        'username': nameController.text,
+        'email': emailController.text,
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
             content: Text('User registered: ${userCredential.user!.email}')),
       );
-      // You can navigate to another page here after successful registration
     } on FirebaseAuthException catch (e) {
       setState(() {
-        _errorMessage = e.message;
+        errorMessage = e.message;
       });
     }
   }
@@ -46,24 +53,36 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (_errorMessage != null)
+            if (errorMessage != null)
               Text(
-                _errorMessage!,
+                errorMessage!,
                 style: TextStyle(color: Colors.red),
               ),
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Name'),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your name';
+                }
+                return null;
+              },
+              onSaved: (value) {
+                nameController.text = value!;
+              },
+            ),
             TextField(
-              controller: _emailController,
+              controller: emailController,
               decoration: InputDecoration(labelText: 'Email'),
               keyboardType: TextInputType.emailAddress,
             ),
             TextField(
-              controller: _passwordController,
+              controller: passwordController,
               decoration: InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _register,
+              onPressed: register,
               child: Text('Register'),
             ),
           ],

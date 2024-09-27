@@ -1,6 +1,7 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:task_viewer_zeabix/view/pages/user_page.dart';
 
 import '../home_page.dart';
 import 'calendar_page.dart';
@@ -30,20 +31,20 @@ class _TaskScaffoldState extends State<TaskScaffold> {
   Color bgColor = const Color(0XFF1752FE);
   final List<TabItem> items = const [
     TabItem(
-      icon: Icons.calendar_month,
+      icon: Icons.notifications,
       title: 'Home',
     ),
     TabItem(
-      icon: Icons.notifications,
-      title: 'Shop',
+      icon: Icons.calendar_month,
+      title: 'Calendar',
     ),
     TabItem(
       icon: Icons.map_outlined,
-      title: 'Wishlist',
+      title: 'Map',
     ),
     TabItem(
       icon: Icons.settings,
-      title: 'Cart',
+      title: 'Setting',
     ),
   ];
 
@@ -74,6 +75,8 @@ class _TaskScaffoldState extends State<TaskScaffold> {
         return const MyHomePage(title: "test");
       case '/map':
         return MapPage(taskLocations: [const LatLng(0, 0)]);
+      case '/user':
+        return userPage();
       default:
         return const CalendarPage();
     }
@@ -92,7 +95,7 @@ class _TaskScaffoldState extends State<TaskScaffold> {
         _navigateWithoutAnimation('/map');
         break;
       case 3:
-        _navigateWithoutAnimation('/home');
+        _navigateWithoutAnimation('/user');
         break;
     }
   }

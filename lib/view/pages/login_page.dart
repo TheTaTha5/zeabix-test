@@ -35,13 +35,11 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     try {
-      // Sign in the user
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
 
-      // After login, check if this is the user's first login
       User? user = userCredential.user;
       if (user != null) {
         bool isNewUser = await _isNewUser(user.uid);
@@ -49,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
           await _createRandomData(user.uid);
         }
 
-        // Navigate to home page after successful login
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

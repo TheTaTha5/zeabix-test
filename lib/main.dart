@@ -12,16 +12,10 @@ import 'view/home_page.dart';
 import 'view/pages/calendar_page.dart';
 import 'view/pages/login_page.dart';
 
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-//   // Handle background message here
-// }
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => NavbarRoutingProvider(),
@@ -44,34 +38,15 @@ class _MyAppState extends State<MyApp> {
   Color color = const Color(0XFF7AC0FF);
   Color color2 = const Color(0XFF96B1FD);
   Color bgColor = const Color(0XFF1752FE);
-  final List<TabItem> items = const [
-    TabItem(
-      icon: Icons.calendar_month,
-      title: 'Home',
-    ),
-    TabItem(
-      icon: Icons.notifications,
-      title: 'Shop',
-    ),
-    TabItem(
-      icon: Icons.map_outlined,
-      title: 'Wishlist',
-    ),
-    TabItem(
-      icon: Icons.settings,
-      title: 'Cart',
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Consumer<CalendarProvider>(builder: (context, themeNotifier, child) {
       return MaterialApp(
         title: 'Task Viewer App',
-        theme: ThemeData.light(), // Light theme
-        darkTheme: ThemeData.dark(), // Dark theme
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
         themeMode: themeNotifier.themeMode,
-
         home: LoginPage(),
         routes: {
           '/home': (context) => const MyHomePage(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:task_viewer_zeabix/provider/calendar_provider.dart';
 
 class ThemeToggleButton extends StatelessWidget {
